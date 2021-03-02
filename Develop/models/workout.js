@@ -6,7 +6,7 @@ const exerciseSchema = new Schema(
     {
         day: {
             type: date,
-            default: date()
+            default: 
         },
 
         exercises: [
@@ -48,7 +48,7 @@ const exerciseSchema = new Schema(
 
                 }
 
-                
+
 
                 
 
