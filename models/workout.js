@@ -5,8 +5,8 @@ const exerciseSchema = new Schema(
 
     {
         day: {
-            type: date,
-            default: 
+            type: Date,
+            default: getDate = new Date()
         },
 
         exercises: [
@@ -55,5 +55,16 @@ const exerciseSchema = new Schema(
             }
         ]
 
+    },
+
+    {
+            toJSON: {
+                virtuals: true
+            }
+
     }
-)
+);
+
+const Workout = mongoose.model("Workout", exerciseSchema);
+
+module.exports = Workout;
