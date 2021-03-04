@@ -1,14 +1,40 @@
 const router = require("express").Router();
 const Workout = require("../models/workout.js");
 
+// Create
+router.post("/api/workouts", (req, res) => {
+
+  Workout.create({})
+  .then(workoutData =>  {
+   res.json(workoutData);
+   })
+
+    .catch(err => {
+     res.json(err);
+     });
+});
+
+// Add Workout
+  router.put("/api/workouts/:id", ({ body, params }, res) => {
+    Workout.findByIdAndUpdate(
+        params.id,
+        {$push: {exercises: body}},
+        {new: true}
+    ) 
+    .then(workoutData =>{
+        res.json(workoutData)
+       })
+    .catch(err => {
+        res.json(err)
+      })
 
 
-
-//file path? Get Workout
+      
+//file path Get workouts
 router.get("/api/workouts", (req, res) => {
 
-    workout.find().then((getWorkoutData) => {
-    res.json(getWorkoutData);
+    Workout.find().then((workoutData) => {
+    res.json(workoutData);
      })
 
     .catch((err) => {
@@ -17,40 +43,24 @@ router.get("/api/workouts", (req, res) => {
 
 });
 
+router.get("/api/workouts/range", (req, res) => {
+    Workout.find({}).limit(7)
 
-//Create
-router.post("/api/workouts", (req, res) => {
-
-    Workout.create({})
-    .then(workoutData =>  {
-     res.json(workoutData);
+    .then(workoutData => {
+      console.log(workoutData)
+      res.json(workoutData);
      })
 
-      .catch(err => {
-       res.json(err);
-       });
-  });
+    .catch(err => {
+     res.json(err);
+    });
+});
 
-
-  //Add
-  router.put("/api/workouts/:id", ({ body, parameters }, res) => {
-  workout.getAndUpdateId(
-       parameters.id,
-      {$push: {exercise:body}},
-      {new: true}
-  ) 
-  
-  .then(workoutData =>{
-      res.json(workoutData)
-     })
-  .catch(err => {
-      res.json(err)
-    })
 
 })
-
+//Delete
 router.delete("/api/workouts", ({body}, res) => {
-    workout.getAndDeleteID(body.id)
+    Workout.findByIdAndDelete(body.id)
     .then(() => {
       res.json(true);
     })
@@ -58,6 +68,11 @@ router.delete("/api/workouts", ({body}, res) => {
     .catch(err => {
       res.json(err);
     })
-})
- module.exports = router
+});
+
+ module.exports = router;
+
+
+
+
 
