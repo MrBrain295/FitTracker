@@ -18,7 +18,7 @@ router.post("/api/workouts", (req, res) => {
 // Add Workout
   router.put("/api/workouts/:id", ({ body, params }, res) => {
     Workout.findByIdAndUpdate(
-        params.id,
+        params.id,  
         {$push: {exercises: body}},
         {new: true}
     ) 
@@ -58,17 +58,21 @@ router.delete("/api/workouts", ({body}, res) => {
 
 
 })
-//Delete
-router.delete("/api/workouts", ({body}, res) => {
-    Workout.findByIdAndDelete(body.id)
-    .then(() => {
-      res.json(true);
+//Range
+router.get("/api/workouts/range", (req, res) => {
+  Workout
+  .find()
+  .limit(7)
+
+    .then(workoutData => {
+     res.json(workoutData);
     })
 
     .catch(err => {
       res.json(err);
-    })
+    });
 });
+
 
  module.exports = router;
 
