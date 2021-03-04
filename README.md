@@ -30,6 +30,13 @@
 
   ## Testing Information
   No Testing Information
+  
+  ## Techologies Used
+  Javascript
+  HTML
+  CSS
+  MongoDB
+  Node.js
 
    ## Questions
 
