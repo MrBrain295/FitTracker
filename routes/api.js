@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Workout = require("../models/workout.js");
 
+
 // Create
 router.post("/api/workouts", (req, res) => {
 
@@ -43,17 +44,16 @@ router.get("/api/workouts", (req, res) => {
 
 });
 
-router.get("/api/workouts/range", (req, res) => {
-    Workout.find({}).limit(7)
+//Delete
+router.delete("/api/workouts", ({body}, res) => {
+  Workout.findByIdAndDelete(body.id)
+  .then(() => {
+    res.json(true);
+  })
 
-    .then(workoutData => {
-      console.log(workoutData)
-      res.json(workoutData);
-     })
-
-    .catch(err => {
-     res.json(err);
-    });
+  .catch(err => {
+    res.json(err);
+  })
 });
 
 
